@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  jemsao:
+    container_name: jems-ao
+    image: registry.jems-group.com/jemsao/jemsao-backend:production
+    environment:
+      - aigen.openapi.dev-url=http://localhost:8080/
+      - aigen.openapi.prod-url=http://192.168.60.129:5024
+      - spring.application.name=AIGen
+      - spring.data.mongodb.database=jemsaoprod
+      - spring.data.mongodb.host=192.168.60.129
+      - spring.data.mongodb.port=27017
+      - aigen.app.jwtSecret= ======================BezKoder=Spring===========================
+      - aigen.app.jwtExpirationMs= 86400000
+      - springdoc.swagger-ui.tryItOutEnabled=true
+      - springdoc.swagger-ui.filter=true
+      - ai.api.key=U2FsdGVkX19VadLCOWc1V5V1Hy9x2qyyDT0OSN+VB0A=
+      - ai.api.url=http://192.168.60.129:5577/api/v1/gpt/chat/object/jems_Ao/completions
+      - spring.mail.host=smtp.gmail.com
+      - spring.mail.port=587
+      - spring.mail.username=jems.4.test@gmail.com
+      - spring.mail.password=iqsicaavndqinnyw
+      - spring.mail.properties.mail.smtp.auth=true
+      - spring.mail.properties.mail.smtp.starttls.enable=true
+      - spring.mail.properties.mail.smtp.starttls.required=true
+      - logging.level.org.springframework.mail=DEBUG
+      - spring.main.allow-circular-references=true
+
+    ports:
+      - "5024:8080"
+    volumes:
+      - .m2:/root/.m2
+    restart: always
+    networks:
+      - jemsaonetwork
+
+networks:
+  jemsaonetwork:
